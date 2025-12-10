@@ -93,7 +93,17 @@ function toggleTheme() {
 }
 
 // ===== Notifications =====
+function isNotificationSupported() {
+    return 'Notification' in window && typeof Notification !== 'undefined';
+}
+
 function updateNotifyButton() {
+    if (!isNotificationSupported()) {
+        elements.notifyBtn.textContent = '🔔 Non disponible (iOS)';
+        elements.notifyBtn.disabled = true;
+        return;
+    }
+    
     if (!('Notification' in window)) {
         elements.notifyBtn.textContent = '🔔 Notifications non supportées';
         elements.notifyBtn.disabled = true;
